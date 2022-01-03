@@ -1,0 +1,116 @@
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+body{
+    font-family: monospace
+}
+#commander {
+  height: 40vh;
+  margin: 2vh 0 0 0;
+  border: thin solid silver;
+}
+#main,
+#aside {
+  height: 100%;
+  overflow-y: scroll;
+}
+#aside {
+  width: 30%;
+}
+#main {
+  width: 70%;
+}
+#line {
+  height: 5vh;
+  border: thin solid silver;
+  display: flex;
+  align-items: flex-start;
+}
+#path{
+    padding: 0.3em;
+}
+#commander .wrapper {
+  display: flex;
+  height: 35vh;
+}
+#file_title{
+    display: block;
+    min-width: 30vw;
+    margin-top: 2vh;
+}
+#editor .wrapper{
+    display: flex;
+    margin-top: 1vh;
+}
+#tools{
+    min-width: 30vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+#editor_tools{
+    
+}
+#editor_history{
+    width: 39vw;
+    height: 40vh;
+    overflow-y: scroll;
+    margin: 0 1em 0 0;
+}
+#editor_history li{
+    max-width: 100%;
+    word-wrap: break-word;
+    list-style-type: none;
+    padding: .3em .5em
+}
+#editor_history .active{
+    background: lightslategrey;
+    color: white
+}
+.modified:after{
+    content: '*';
+}
+button,
+#main li,
+#aside li,
+#editor_history li,
+.chunk {
+  cursor: pointer;
+}
+#main li, #aside li{
+    list-style-type: none;
+    margin: .5em 0;
+    padding: .3em;
+    border-bottom: thin solid #cfd5db;
+}
+#main li:hover:not(.active), #aside li:hover:not(.active){
+    background-color: #cfd5db;
+}
+#aside .active {
+  background: lightsteelblue;
+  color: white;
+}
+#main .active {
+    border: thin solid lightsteelblue;
+    color: lightslategrey;
+}
+.resize {
+  width: 5px;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  cursor: e-resize;
+}
+#up{
+    margin: 0 1em
+}
+#editor textarea{
+    display: block;
+    width: 60vw;
+    resize: horizontal;
+    height: 40vh
+}

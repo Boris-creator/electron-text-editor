@@ -1,0 +1,49 @@
+{
+    "appId": "free.navalniy.editor",
+    "productName": "Total Editor",
+    "copyright": "emplonics.ltd",
+    "directories": {
+        "app": ".",
+        "output": "out",
+        "buildResources": "src"
+    },
+    "files": [
+        "package.json",
+        "app/**/*",
+        "node_modules"
+    ],
+    "dmg": {
+        "background": null,
+        "backgroundColor": "#ffffff",
+        "window": {
+            "width": "400",
+            "height": "300"
+        },
+        "contents": [
+            {
+                "x": 100,
+                "y": 100
+            },
+            {
+                "x": 300,
+                "y": 100,
+                "type": "link",
+                "path": "/Applications"
+            }
+        ]
+    },
+    "mac": {
+        "target": "dmg",
+        "category": "public.app-category.utilities"
+    },
+    "win": {
+        "target": ["portable"]
+    },
+    "portable": {
+        "artifactName": "Total_Editor.exe"
+    },
+    "linux": {
+        "target": "AppImage",
+        "category": "Utility"
+    }
+}

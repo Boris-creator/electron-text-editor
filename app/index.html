@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self' data: gap: https://cdn.jsdelivr.net 'unsafe-inline' 'unsafe-eval';"
+    />
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <title>Editor</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <!--
+      <h1>Hello World!</h1>
+    We are using Node.js <span id="node-version"></span>,
+    Chromium <span id="chrome-version"></span>,
+    and Electron <span id="electron-version"></span>.
+    -->
+    <div id="commander">
+      <div id="line">
+        <div id="history">
+          <button id="back" disabled>&larr;</button>
+          <button id="forth" disabled>&rarr;</button>
+        </div>
+        <button id="up">&uarr;</button>
+        <div id="path"></div>
+      </div>
+      <div class="wrapper">
+        <div id="aside"></div>
+        <div class="resize"></div>
+        <div id="main"></div>
+      </div>
+    </div>
+    <div id="editor">
+      <input id="file_title" disabled placeholder="имя файла">
+      <div class="wrapper">
+        <div id="tools">
+          <ul id="editor_history"></ul>
+          <div id="editor_tools">
+            <button id="editor_back" disabled>&larr;</button>
+            <button id="editor_forth" disabled>&rarr;</button>
+            <button id="file_save">сохранить</button>
+          </div>
+        </div>
+        <textarea></textarea>
+      </div>
+    </div>
+    <div style="display:none">
+      <input type="text" id="filepath" />
+      <button id="openfile">open</button>
+      <button id="readfile">read</button>
+      <textarea id="redactor"></textarea>
+      <button id="save">save</button>
+    </div>
+    <script src="./renderer.js"></script>
+    <script>
+      function resize_handler() {
+        const p = document.getElementById("aside"),
+          d = document.querySelector("#main"),
+          r = document.querySelector(".resize");
+        let curr_width = parseInt(getComputedStyle(p).width);
+        let unlock = false;
+        document.addEventListener("mousemove", function (e) {
+          if (!unlock) {
+            return;
+          }
+          const change = curr_width + (e.clientX - curr_width);
+          if (change > 200) {
+            p.style.width = change + "px";
+            d.style.width = `calc(100% - ${change}px)`;
+          } else {
+            p.style.width = "200px";
+            d.style.width = `calc(100% - 200px)`;
+          }
+        });
+        r.addEventListener("mousedown", function (e) {
+          curr_width = parseInt(getComputedStyle(p).width);
+          unlock = true;
+        });
+        document.body.addEventListener("mousedown", function (e) {
+          if (unlock) {
+            e.preventDefault();
+          }
+        });
+        document.body.addEventListener("mouseup", function (e) {
+          unlock = false;
+        });
+      }
+      resize_handler();
+      document.body.onselectstart = ()=> false
+    </script>
+  </body>
+</html>

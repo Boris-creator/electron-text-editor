@@ -1,12 +1,14 @@
 {
-  "name": "electron-quick-start",
+  "name": "text-editor",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
-  "main": "main.js",
+  "description": "An Electron application",
+  "main": "app/main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "postinstall": "electron-builder install-app-deps",
+    "pack": "electron-builder -w",
+    "dist": "build"
   },
-  "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
     "Electron",
     "quick",
@@ -14,9 +16,10 @@
     "tutorial",
     "demo"
   ],
-  "author": "GitHub",
+  "author": "Boris",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^16.0.5"
+    "electron": "^16.0.5",
+    "electron-builder": "latest"
   }
 }
