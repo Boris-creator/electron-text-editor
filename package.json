@@ -19,7 +19,7 @@
   "author": "Boris",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^16.0.5",
+    "electron": "^16.0.6",
     "electron-builder": "latest"
   }
 }
