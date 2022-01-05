@@ -1,5 +1,6 @@
 const fss = require('fs');
 const path = require('path');
+const os = require('os');
 function dir_read_sync(dirname) {
     console.log(dirname)
   const res = [];
@@ -36,5 +37,14 @@ function dir_read_sync(dirname) {
   };
   return res;
 }
-console.log(dir_read_sync("C:/"));
+//console.log(dir_read_sync("C:/"));
 //console.log(fss.statSync('C:\\swapfile.sys'))
+const cli = require('./app/cli.js');
+async function test_cli(shell){
+  if(!shell && os.type() == 'Windows_NT'){
+    await cli.execute('chcp 65001')
+  }
+  const out = await cli.execute('chcp'/*, 'C:\\Program Files\\Git\\bin\\bash.exe'*/);
+  console.log(JSON.stringify(out))
+}
+test_cli()

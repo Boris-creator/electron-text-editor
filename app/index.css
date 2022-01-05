@@ -114,3 +114,12 @@ button,
     resize: horizontal;
     height: 40vh
 }
+#cli{
+  margin: 2vh 0 0 2vw;
+  padding: 2em
+}
+#cli_input{
+  display: block;
+  width: 100%;
+  margin-top: 2em
+}

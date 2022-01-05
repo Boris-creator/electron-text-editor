@@ -4,7 +4,10 @@ const electron = require("electron"),
   path = require("path"),
   fs = require("fs").promises,
   fss = require("fs"),
-  crypto = require("crypto");
+  crypto = require("crypto"),
+  os = require('os');
+
+const cli = require("./cli.js");
 const { title } = require("process");
 const shell = electron.shell;
 function file_open(src) {
@@ -451,6 +454,8 @@ window.addEventListener("DOMContentLoaded", () => {
     history: document.getElementById("editor_history"),
     forth: document.getElementById("editor_forth"),
     back: document.getElementById("editor_back"),
+    cli: document.getElementById("cli_input"),
+    cli_out: document.getElementById("cli_output")
   };
   const editor_history = new History_renderer(
     {
@@ -560,6 +565,26 @@ window.addEventListener("DOMContentLoaded", () => {
     false
   );
   //
+  refs.cli.addEventListener('keyup', async function (e) {
+    if(e.code == 'Enter'){
+      let command = this.value.trim();
+      //to do: user select path to shell exe file
+      //const shell = 'C:\\Program Files\\Git\\bin\\bash.exe';
+      const shell = '';
+      let encoding = ''
+      if(!shell && os.type() == 'Windows_NT'){
+        //command = 'chcp 65001 && ' + command
+        const test = await cli.execute('chcp', shell, encoding);
+        if(/866/.test(test)){
+          encoding = 'cp866'
+        }
+      }
+      console.log(command)
+      const out = await cli.execute(command, shell, encoding);
+      refs.cli_out.textContent = out
+    }
+  })
+  //
   /*
   const refs = {
     filepath: document.getElementById('filepath'),
@@ -592,3 +617,11 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 })
 */
+async function test_cli(shell){
+  if(!shell && os.type() == 'Windows_NT'){
+    await cli.execute('chcp 65001')
+  }
+  const out = await cli.execute('chcp'/*, 'C:\\Program Files\\Git\\bin\\bash.exe'*/);
+  console.log(JSON.stringify(out))
+}
+test_cli() //результат не такой как в test.js -- кодировка при втором вводе сброшена до дефолтной!
